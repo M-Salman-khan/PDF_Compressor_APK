@@ -12,7 +12,15 @@ A complete, cross-platform PDF compression tool featuring a **Flutter** frontend
 
 The Flutter app provides a clean, native experience on mobile and desktop, while the Flask server handles the heavy lifting of PDF compression using the powerful **Ghostscript** engine.
 
-![App Demo](.github/assets/Output.png)
+---
+
+## 📸 Demo of Running Application
+
+<p align="center">
+  <img src=".github/assets/Output.png" alt="App Demo" width="350"/>
+  <br>
+  <em>The main interface of the PDF Compressor app in action.</em>
+</p>
 
 ---
 
@@ -164,6 +172,3 @@ This project is distributed under the MIT License. See `LICENSE` for more inform
 ## 🌟 Show Your Support
 
 If this project helped you, please give it a ⭐️ on GitHub! This helps others find it and encourages future development.
-
-
-

@@ -9,9 +9,18 @@ This directory contains the Flutter frontend for the PDF Compressor project. It 
 
 The app allows users to select a PDF, choose a compression quality, and save the optimized file back to their device.
 
-![App Demo](../.github/assets/Output.png)
+---
+
+## 📸 Main Interface
+
+<p align="center">
+  <img src="../.github/assets/Output.png" alt="App Demo" width="350"/>
+  <br>
+  <em>The main interface of the PDF Compressor app in action.</em>
+</p>
 
 ---
+
 
 ## ✨ Features
 
