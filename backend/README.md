@@ -1,132 +1,111 @@
-# PDF Compressor Web App 📄⚡
+# PDF Compressor - Flask API Backend
 
-![Flask](https://img.shields.io/badge/Flask-v2.3-blue.svg) ![Python](https://img.shields.io/badge/Python-v3.10+-yellow.svg) ![Ghostscript](https://img.shields.io/badge/Ghostscript-v10.x-red.svg) ![License](https://img.shields.io/badge/License-MIT-green.svg)
+<p align="center">
+  <img src="https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white" alt="Flask Badge"/>
+  <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python Badge"/>
+  <img src="https://img.shields.io/badge/Ghostscript-v10.x-red.svg?style=for-the-badge" alt="Ghostscript Badge"/>
+</p>
 
-A minimal, fast, and student-friendly PDF compression web app built using **Python Flask** and **Ghostscript**. This tool allows users to upload any PDF and compress it instantly to reduce file size while retaining readable quality — all through a sleek dark-mode UI.
+This directory contains the Flask backend server for the PDF Compressor project. It's a lightweight, pure API server designed to receive a PDF file from the Flutter frontend, compress it using Ghostscript, and return the optimized file.
 
-## 📌 Description
+## ✨ Core Functionality
 
-This application solves a common frustration among students: **large PDF assignment file sizes** that exceed upload limits on university portals or emails. Instead of using sketchy online tools or installing heavy software, this lightweight web app gives you quick, quality-controlled PDF compression right from your browser.
-
-⚡ **Completely Offline** – Unlike most online tools that require high-speed internet, this app works entirely offline once set up. You can compress PDFs anytime, anywhere — perfect for students with limited or no internet access.
-
-## 🚀 Features
-
-- 📄 Upload any PDF file and compress it in seconds
-- 🧠 Choose from multiple quality levels: screen, ebook, printer, prepress
-- 💾 Download compressed files with size info
-- 🌙 Sleek dark mode UI for late-night usage
-- 📶 No internet? No problem — fully functional offline for uninterrupted productivity
-- 🌀 Loading spinner and blur effect during compression
-- 🔁 Auto-redirect or manual return to homepage after download
-
-## ⚙️ Tech Stack
-
-- **Backend**: Flask (Python)
-- **Compression Engine**: Ghostscript
-- **Frontend**: HTML, CSS (Dark UI), JS
-
-## 📁 Project Structure
-
-```
-PDF_Compressor/
-├── templates/
-│   └── index.html          # Main frontend UI
-├── static/                 # Static files (CSS & JS)
-│   ├── styles.css          # Custom dark theme styles
-│   └── script.js           # Frontend interactivity (spinner, blur, etc.)
-├── uploads/                # Stores uploaded and compressed files
-├── app.py                  # Flask app logic
-├── requirements.txt        # Python dependencies
-└── README.md               # Project documentation
-```
-
-## 💡 Prerequisites
-
-- Python 3.10 or higher
-- Flask: `pip install flask`
-- Ghostscript installed on system (Windows/Mac/Linux)
-- Add Ghostscript to system PATH (or update the path in `app.py`)
-
-## 🛠️ Installation
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/M-Salman-khan/PDF_Compressor.git
-   cd PDF_Compressor
-   ```
-
-2. Install Flask:
-   ```bash
-   pip install flask
-   ```
-
-3. Install Ghostscript:
-   - [Download for Windows](https://ghostscript.com/releases/gsdnld.html)
-   - [Download for Linux/Mac](https://www.ghostscript.com/download/gsdnld.html)
-
-4. Set Ghostscript path in `app.py`:
-   ```python
-   GS_PATH = "C:\Program Files\gs\gs10.05.1\bin\gswin64c.exe"
-   ```
-
-5. Run the Flask app:
-   ```bash
-   python app.py
-   ```
-
-   Then open your browser at:  
-   **http://localhost:5000**
-
-## 📦 Output Example
-
-After compression, the user sees:
-- ✅ A download section with filename and compressed size
-- 🔽 A download button
-- 🔁 A button to go back and compress another file
-
-## 🎯 Why Students Love It
-
-This tool was built with students in mind — especially those who struggle with:
-- Uploading large assignment PDFs to college portals (with size limits)
-- Emailing presentations or scanned notes
-- Sharing lecture notes on WhatsApp, Telegram, etc.
-- Compressing files in low or no internet zones — thanks to full **offline support**
-With no login, no ads, no tracking — it just gets the job done.
-
-## 🧪 Compression Quality Options
-
-| Option     | Description                | Compression |
-|------------|----------------------------|-------------|
-| `screen`   | Lowest quality (max size cut) | 🔻 Maximum |
-| `ebook`    | Balanced for readability     | ✅ Recommended |
-| `printer`  | Medium quality for prints    | 🖨️ Moderate |
-| `prepress` | High quality for publishing  | 📚 Least |
-
-## 🌐 Future Plans
-
-- Drag & Drop Upload
-- Real-time size preview
-- Multi-file compression
-
-## 🤝 Contributing
-
-1. Fork the repo
-2. Create a feature branch (`git checkout -b feature/new-feature`)
-3. Commit your changes (`git commit -m 'Add new feature'`)
-4. Push to GitHub (`git push origin feature/new-feature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License.  
-See the [LICENSE](LICENSE) file for more information.
-
-## 👨‍💻 Author
-
-**M Salman Khan**  
-[🔗 GitHub Profile](https://github.com/M-Salman-khan)
+-   **Single API Endpoint:** Exposes a `/compress` endpoint to handle all compression logic.
+-   **Ghostscript Engine:** Leverages the powerful Ghostscript command-line tool for efficient PDF compression.
+-   **Stateless Design:** The server processes requests on the fly and does not store user data long-term (uploaded files are temporary).
 
 ---
 
-⭐ **Star** this repo if this project helped you compress your assignments smoothly!
+## ⚙️ API Documentation
+
+### Compress PDF
+
+-   **Endpoint:** `POST /compress`
+-   **Description:** Uploads a PDF file, compresses it to the specified quality, and returns the result.
+-   **Request Type:** `multipart/form-data`
+
+#### Form Data Parameters
+
+| Key       | Type   | Description                                                                                             |
+| :-------- | :----- | :------------------------------------------------------------------------------------------------------ |
+| `pdf`     | File   | **Required.** The PDF file to be compressed.                                                            |
+| `quality` | String | *Optional.* The compression level. Defaults to `ebook`.<br>Options: `screen`, `ebook`, `printer`, `prepress`. |
+
+#### Responses
+
+-   **`200 OK`**:
+    -   **Content:** The compressed PDF file as a binary stream.
+    -   **Headers:**
+        -   `Content-Type: application/pdf`
+        -   `Content-Disposition: attachment; filename="compressed_{quality}_{original_filename}"`
+
+-   **`400 Bad Request`**:
+    -   **Content:** `{"error": "No file part"}` or `{"error": "No selected file"}`
+    -   **Reason:** The `pdf` file part is missing from the request.
+
+-   **`500 Internal Server Error`**:
+    -   **Content:** `{"error": "<error_message>"}`
+    -   **Reason:** An error occurred during the Ghostscript compression process.
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+1.  **Python 3.7+**
+2.  **Pip** (Python package installer)
+3.  **Ghostscript:** Must be installed on the server's operating system.
+    -   Download Ghostscript
+
+### Installation & Setup
+
+1.  **Navigate to the backend directory:**
+    ```bash
+    cd backend
+    ```
+
+2.  **Install Python dependencies:**
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+3.  **Configure Ghostscript Path:**
+    This is a critical step. Open `main.py` and find the `get_ghostscript_cmd()` function. Update the path to match your Ghostscript installation, especially for Windows.
+
+    ```python
+    # d:\Downloads\Desktop\New folder\Flutter\backend\main.py
+
+    def get_ghostscript_cmd():
+        if platform.system() == "Windows":
+            # ‼️ UPDATE THIS PATH if your installation is different
+            return "C:\\Program Files\\gs\\gs10.05.1\\bin\\gswin64c.exe"
+        else:
+            # On Linux/macOS, 'gs' should be in the system PATH
+            return "gs"
+    ```
+
+4.  **Run the Server:**
+    ```bash
+    python main.py
+    ```
+    The API server will start on `http://0.0.0.0:10000`.
+
+---
+
+## 🧪 Testing the API
+
+You can test the endpoint using a tool like `curl` without needing the Flutter app.
+
+```bash
+# Replace 'path/to/your/file.pdf' with an actual file path
+curl -X POST \
+  -F "pdf=@path/to/your/file.pdf" \
+  -F "quality=screen" \
+  http://127.0.0.1:10000/compress \
+  -o compressed_output.pdf
+```
+
+----
+This command will send `file.pdf`, compress it with `screen` quality, and save the result as `compressed_output.pdf`.
+
