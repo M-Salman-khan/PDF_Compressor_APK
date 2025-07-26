@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>PDF Compressor</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>📄 PDF Compressor</h1>
+
+    {% if not download %}
+    <form method="POST" enctype="multipart/form-data">
+      <label for="pdf">Upload PDF File</label>
+      <input type="file" name="pdf" accept=".pdf" required>
+
+      <label for="quality">Compression Quality</label>
+      <select name="quality" required>
+        <option value="screen">Screen (Max compression)</option>
+        <option value="ebook" selected>eBook (Good balance)</option>
+        <option value="printer">Printer (Better quality)</option>
+        <option value="prepress">Prepress (High quality)</option>
+      </select>
+
+      <button type="submit">Compress PDF</button>
+    </form>
+    {% else %}
+    <div class="download-section">
+      <h2>✅ Compression Complete</h2>
+      <p><strong>{{ filename }}</strong></p>
+      <p>Size: {{ filesize }} KB</p>
+      <a href="{{ url_for('download_file', filename=filename) }}" class="btn">Download File</a>
+      <br>
+      <a href="{{ url_for('index') }}" class="btn" style="background-color: #444; margin-top: 15px;">Go Back</a>
+    </div>
+    {% endif %}
+
+    <div class="footer">✨ Made by 💙 Salita</div>
+  </div>
+
+  <!-- Loading Modal -->
+  <div id="loadingModal">
+    <div class="modal-content">
+      Compressing your PDF...
+      <div class="spinner"></div>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>
